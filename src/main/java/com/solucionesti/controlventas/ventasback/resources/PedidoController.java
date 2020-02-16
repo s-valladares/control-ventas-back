@@ -137,4 +137,22 @@ public class PedidoController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 
+
+    @DeleteMapping(entidad + "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+
+        Map<String, Object> response = new HashMap<>();
+        try {
+            objService.delete(id);
+        } catch (DataAccessException ex) {
+            response.put("mensaje", "Error eliminar el cliente en la base de datos");
+            response.put("error", ex.getMessage().concat(": ").concat(ex.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("mensaje: ", "objeto eliminado con éxito");
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+    }
+
 }
