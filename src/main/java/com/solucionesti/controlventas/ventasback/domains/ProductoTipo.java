@@ -1,6 +1,5 @@
 package com.solucionesti.controlventas.ventasback.domains;
 
-import com.solucionesti.controlventas.ventasback.config.AuditModel;
 
 import javax.persistence.*;
 import java.io.Serializable;

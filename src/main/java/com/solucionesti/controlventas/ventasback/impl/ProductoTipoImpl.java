@@ -1,10 +1,8 @@
 package com.solucionesti.controlventas.ventasback.impl;
 
-import com.solucionesti.controlventas.ventasback.domains.Producto;
+
 import com.solucionesti.controlventas.ventasback.domains.ProductoTipo;
-import com.solucionesti.controlventas.ventasback.repositories.IProductoDao;
 import com.solucionesti.controlventas.ventasback.repositories.IProductoTipoDao;
-import com.solucionesti.controlventas.ventasback.services.IProductoService;
 import com.solucionesti.controlventas.ventasback.services.IProductoTipoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
