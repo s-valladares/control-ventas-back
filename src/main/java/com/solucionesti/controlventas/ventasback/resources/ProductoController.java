@@ -114,7 +114,7 @@ public class ProductoController {
         }
 
         if (flActual == null) {
-            response.put("mensaje", "Error: no hay objeto con id: "
+            response.put("mensaje", "Error: no hay objeto con con id: "
                     .concat(id.toString().concat(". No existe en la base de datos")));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
@@ -125,6 +125,7 @@ public class ProductoController {
             flActual.setDescripcion(fl.getDescripcion());
             flActual.setPrecio(fl.getPrecio());
             flActual.setTipo(fl.getTipo());
+            flActual.setEstado(fl.getEstado());
 
             flActualizado = objService.create(flActual);
         } catch (DataAccessException ex) {

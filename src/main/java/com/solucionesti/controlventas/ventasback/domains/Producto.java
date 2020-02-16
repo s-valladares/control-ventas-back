@@ -1,6 +1,9 @@
 package com.solucionesti.controlventas.ventasback.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.solucionesti.controlventas.ventasback.config.AuditModel;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +17,14 @@ public class Producto extends AuditModel implements Serializable {
     private String nombre;
     private String descripcion;
     private double precio;
-    private String tipo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private ProductoTipo tipo;
+
+    private String estado;
 
     public Long getId() {
         return id;
@@ -44,9 +54,21 @@ public class Producto extends AuditModel implements Serializable {
 
     public void setPrecio(Double precio) { this.precio = precio; }
 
-    public String getTipo() { return tipo; }
+    public ProductoTipo getTipo() {
+        return tipo;
+    }
 
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public void setTipo(ProductoTipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
     private static final long serialVersionUID = 1L;
 }
