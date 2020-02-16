@@ -31,7 +31,7 @@ public class PedidoController {
         List<Pedido> objNew = null;
         Map<String, Object> response = new HashMap<>();
         try {
-            objNew = objService.getAll();
+            objNew = objService.getActivos();
         } catch (DataAccessException ex) {
             response.put("mensaje", "Error al obtener de la base de datos");
             response.put("error", ex.getMessage().concat(": ").concat(ex.getMostSpecificCause().getMessage()));
@@ -123,7 +123,7 @@ public class PedidoController {
 
             flActual.setCliente(fl.getCliente());
             flActual.setEntrega(fl.getEntrega());
-            flActual.setEstado(fl.getEstado());
+            flActual.setEstado(fl.isEstado());
 
             flActualizado = objService.create(flActual);
         } catch (DataAccessException ex) {

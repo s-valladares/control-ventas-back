@@ -9,4 +9,6 @@ public interface IPedidoService {
     public Pedido getId(Long id);
     public Pedido create(Pedido p);
     public void delete(Long id);
+
+    public List<Pedido> getActivos();
 }
