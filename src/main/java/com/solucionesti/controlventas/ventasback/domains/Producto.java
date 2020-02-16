@@ -24,7 +24,7 @@ public class Producto extends AuditModel implements Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ProductoTipo tipo;
 
-    private String estado;
+    private boolean estado;
 
     public Long getId() {
         return id;
@@ -62,11 +62,11 @@ public class Producto extends AuditModel implements Serializable {
         this.tipo = tipo;
     }
 
-    public String getEstado() {
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

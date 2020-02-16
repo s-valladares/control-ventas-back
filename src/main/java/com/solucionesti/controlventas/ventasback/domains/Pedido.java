@@ -16,7 +16,11 @@ public class Pedido extends AuditModel implements Serializable {
     private String nota;
     @Temporal(TemporalType.TIMESTAMP)
     private Date entrega;
-    private String estado;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date hora;
+
+    private boolean estado;
 
     public Long getId() {
         return id;
@@ -50,11 +54,19 @@ public class Pedido extends AuditModel implements Serializable {
         this.entrega = entrega;
     }
 
-    public String getEstado() {
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
+    }
+
+    public boolean isEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 

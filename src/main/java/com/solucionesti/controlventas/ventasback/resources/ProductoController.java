@@ -125,7 +125,7 @@ public class ProductoController {
             flActual.setDescripcion(fl.getDescripcion());
             flActual.setPrecio(fl.getPrecio());
             flActual.setTipo(fl.getTipo());
-            flActual.setEstado(fl.getEstado());
+            flActual.setEstado(fl.isEstado());
 
             flActualizado = objService.create(flActual);
         } catch (DataAccessException ex) {

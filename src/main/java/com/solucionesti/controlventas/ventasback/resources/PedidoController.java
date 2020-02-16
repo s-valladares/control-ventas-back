@@ -31,7 +31,7 @@ public class PedidoController {
         List<Pedido> objNew = null;
         Map<String, Object> response = new HashMap<>();
         try {
-            objNew = objService.getAll();
+            objNew = objService.getActivos();
         } catch (DataAccessException ex) {
             response.put("mensaje", "Error al obtener de la base de datos");
             response.put("error", ex.getMessage().concat(": ").concat(ex.getMostSpecificCause().getMessage()));
@@ -123,7 +123,8 @@ public class PedidoController {
 
             flActual.setCliente(fl.getCliente());
             flActual.setEntrega(fl.getEntrega());
-            flActual.setEstado(fl.getEstado());
+            flActual.setHora(fl.getHora());
+            flActual.setEstado(fl.isEstado());
 
             flActualizado = objService.create(flActual);
         } catch (DataAccessException ex) {
@@ -135,6 +136,24 @@ public class PedidoController {
         response.put("mensaje", "El objeto fue actualizado correctamente");
         response.put("RES", flActualizado);
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+
+
+    @DeleteMapping(entidad + "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+
+        Map<String, Object> response = new HashMap<>();
+        try {
+            objService.delete(id);
+        } catch (DataAccessException ex) {
+            response.put("mensaje", "Error eliminar el cliente en la base de datos");
+            response.put("error", ex.getMessage().concat(": ").concat(ex.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("mensaje: ", "objeto eliminado con éxito");
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 
 }

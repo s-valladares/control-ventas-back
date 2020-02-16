@@ -35,4 +35,11 @@ public class PedidoImpl implements IPedidoService {
     public void delete(Long id) {
         objDao.deleteById(id);
     }
+
+    @Override
+    public List<Pedido> getActivos() {
+        return objDao.verPedidosActivos();
+    }
+
+
 }
