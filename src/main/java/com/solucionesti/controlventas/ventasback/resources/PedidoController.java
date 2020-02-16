@@ -123,6 +123,7 @@ public class PedidoController {
 
             flActual.setCliente(fl.getCliente());
             flActual.setEntrega(fl.getEntrega());
+            flActual.setHora(fl.getHora());
             flActual.setEstado(fl.isEstado());
 
             flActualizado = objService.create(flActual);
