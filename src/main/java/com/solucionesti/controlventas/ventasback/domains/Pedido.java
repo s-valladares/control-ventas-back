@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "pedidos")
-public class Pedido implements Serializable {
+public class Pedido extends AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

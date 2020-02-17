@@ -1,7 +1,9 @@
 package com.solucionesti.controlventas.ventasback.domains;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.solucionesti.controlventas.ventasback.config.AuditModel;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -12,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "pedidos_detalles")
-public class PedidoDetalle extends AuditModel implements Serializable {
+public class PedidoDetalle implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,13 +25,13 @@ public class PedidoDetalle extends AuditModel implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
-    @JsonIgnoreProperties({ "descripcion", "tipo", "hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({ "descripcion", "createdAt", "updatedAt", "estado", "tipo", "hibernateLazyInitializer", "handler"})
     private Producto producto;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn
-    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     private Pedido pedido;
 
     public Long getId() {
@@ -64,10 +66,12 @@ public class PedidoDetalle extends AuditModel implements Serializable {
         this.producto = producto;
     }
 
+    @JsonIgnore
     public Pedido getPedido() {
         return pedido;
     }
 
+    @JsonProperty
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }

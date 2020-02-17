@@ -25,11 +25,12 @@ public class ProductoController {
 
     @Autowired
     private IProductoService objService;
+    Map<String, Object> response = new HashMap<>();
 
     @GetMapping(entidad)
     public ResponseEntity<?> index() {
         List<Producto> objNew = null;
-        Map<String, Object> response = new HashMap<>();
+        response.clear();
         try {
             objNew = objService.getAll();
         } catch (DataAccessException ex) {
@@ -46,9 +47,8 @@ public class ProductoController {
 
     @GetMapping(entidad + "/{id}" )
     public ResponseEntity<?> show(@PathVariable Long id) {
-
+        response.clear();
         Producto obj = null;
-        Map<String, Object> response = new HashMap<>();
 
         try {
             obj = objService.getId(id);
@@ -68,9 +68,8 @@ public class ProductoController {
 
     @PostMapping(entidad)
     public ResponseEntity<?> create(@Valid @RequestBody Producto x, BindingResult result) {
-
+        response.clear();
         Producto objNew = null;
-        Map<String, Object> response = new HashMap<>();
 
         if (result.hasErrors()) {
             List<String> errors = result.getFieldErrors().stream().map(err -> {
@@ -99,10 +98,9 @@ public class ProductoController {
 
     @PutMapping(entidad + "/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody Producto fl, BindingResult result, @PathVariable Long id) {
-
+        response.clear();
         Producto flActual = objService.getId(id);
         Producto flActualizado = null;
-        Map<String, Object> response = new HashMap<>();
 
         if (result.hasErrors()) {
             List<String> errors = result.getFieldErrors().stream().map(err -> {

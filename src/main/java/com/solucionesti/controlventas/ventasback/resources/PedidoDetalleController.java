@@ -27,11 +27,12 @@ public class PedidoDetalleController {
 
     @Autowired
     private IPedidoDetalleService objService;
+    private Map<String, Object> response = new HashMap<>();
 
     @GetMapping(entidad + "/{id}")
     public ResponseEntity<?> index(@PathVariable Long id) {
         List<PedidoDetalle> objNew = null;
-        Map<String, Object> response = new HashMap<>();
+        response.clear();
         try {
             objNew = objService.getIdPedido(id);
         } catch (DataAccessException ex) {
@@ -70,10 +71,8 @@ public class PedidoDetalleController {
 */
     @PostMapping(entidad)
     public ResponseEntity<?> create(@Valid @RequestBody PedidoDetalle x, BindingResult result) {
-
+        response.clear();
         PedidoDetalle objNew = null;
-        Map<String, Object> response = new HashMap<>();
-
         if (result.hasErrors()) {
             List<String> errors = result.getFieldErrors().stream().map(err -> {
                 return "El campo '" + err.getField() + "' " + err.getDefaultMessage();
@@ -101,10 +100,9 @@ public class PedidoDetalleController {
 
     @PutMapping(entidad + "/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody PedidoDetalle fl, BindingResult result, @PathVariable Long id) {
-
+        response.clear();
         PedidoDetalle flActual = objService.getId(id);
         PedidoDetalle flActualizado = null;
-        Map<String, Object> response = new HashMap<>();
 
         if (result.hasErrors()) {
             List<String> errors = result.getFieldErrors().stream().map(err -> {
@@ -143,8 +141,7 @@ public class PedidoDetalleController {
     @DeleteMapping(entidad + "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> delete(@PathVariable Long id) {
-
-        Map<String, Object> response = new HashMap<>();
+        response.clear();
 
         try {
             objService.delete(id);
