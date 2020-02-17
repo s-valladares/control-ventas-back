@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class ProductoTipoController {
 
-    private final String entidad = "/productos-tipos";
+    private final String entidad = "/productos/tipos";
 
     @Autowired
     private IProductoTipoService objService;
