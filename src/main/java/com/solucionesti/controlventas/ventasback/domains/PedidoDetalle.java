@@ -19,7 +19,10 @@ public class PedidoDetalle implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double cantidad;
+    private Double subtotal;
     private Double total;
+    private String comentario;
+    private Double adicional;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,6 +67,30 @@ public class PedidoDetalle implements Serializable {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public Double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public Double getAdicional() {
+        return adicional;
+    }
+
+    public void setAdicional(Double adicional) {
+        this.adicional = adicional;
     }
 
     @JsonIgnore
