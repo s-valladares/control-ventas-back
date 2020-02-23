@@ -21,7 +21,8 @@ public class PedidoDetalleImpl implements IPedidoDetalleService {
     @Override
     @Transactional(readOnly = true)
     public List<PedidoDetalle> getIdPedido(Long id) {
-        return (List<PedidoDetalle>) objDao.findAll();
+
+        return (List<PedidoDetalle>) objDao.verPedidosDetallesId(id);
     }
 
     @Override
