@@ -32,6 +32,7 @@ public class PedidoController {
         Map<String, Object> response = new HashMap<>();
         try {
             objNew = objService.getActivos();
+            System.out.println(objNew);
         } catch (DataAccessException ex) {
             response.put("mensaje", "Error al obtener de la base de datos");
             response.put("error", ex.getMessage().concat(": ").concat(ex.getMostSpecificCause().getMessage()));

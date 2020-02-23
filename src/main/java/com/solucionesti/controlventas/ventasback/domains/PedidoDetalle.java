@@ -103,5 +103,6 @@ public class PedidoDetalle implements Serializable {
         this.pedido = pedido;
     }
 
+
     private static final long serialVersionUID = 1L;
 }

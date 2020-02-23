@@ -70,5 +70,6 @@ public class Pedido extends AuditModel implements Serializable {
         this.estado = estado;
     }
 
+
     private static final long serialVersionUID = 1L;
 }

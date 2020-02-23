@@ -1,15 +1,14 @@
 package com.solucionesti.controlventas.ventasback.resources;
 
 import com.solucionesti.controlventas.ventasback.config.UrlBaseApi;
-import com.solucionesti.controlventas.ventasback.domains.Pedido;
-import com.solucionesti.controlventas.ventasback.domains.Venta;
-import com.solucionesti.controlventas.ventasback.services.IPedidoService;
-import com.solucionesti.controlventas.ventasback.services.IVentaService;
+import com.solucionesti.controlventas.ventasback.domains.PedidoDetalle;
+import com.solucionesti.controlventas.ventasback.domains.VentaDetalle;
+import com.solucionesti.controlventas.ventasback.services.IPedidoDetalleService;
+import com.solucionesti.controlventas.ventasback.services.IVentaDetalleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,19 +21,20 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(UrlBaseApi.URL_API)
 
-public class VentaController {
+public class VentaDetalleController {
 
-    private final String entidad = "/ventas";
+    private final String entidad = "/ventas/detalles";
 
     @Autowired
-    private IVentaService objService;
+    private IVentaDetalleService objService;
+    private Map<String, Object> response = new HashMap<>();
 
-    @GetMapping(entidad)
-    public ResponseEntity<?> index() {
-        List<Venta> objNew = null;
-        Map<String, Object> response = new HashMap<>();
+    @GetMapping(entidad + "/{id}")
+    public ResponseEntity<?> index(@PathVariable Long id) {
+        List<VentaDetalle> objNew = null;
+        response.clear();
         try {
-            objNew = objService.getAll();
+            objNew = objService.getIdVenta(id);
         } catch (DataAccessException ex) {
             response.put("mensaje", "Error al obtener de la base de datos");
             response.put("error", ex.getMessage().concat(": ").concat(ex.getMostSpecificCause().getMessage()));
@@ -44,13 +44,13 @@ public class VentaController {
         response.put("size", objNew.size());
         response.put("rows", objNew);
 
-        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
-
+/*
     @GetMapping(entidad + "/{id}" )
     public ResponseEntity<?> show(@PathVariable Long id) {
 
-        Venta obj = null;
+        PedidoDetalle obj = null;
         Map<String, Object> response = new HashMap<>();
 
         try {
@@ -66,15 +66,13 @@ public class VentaController {
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<Venta>(obj, HttpStatus.OK);
+        return new ResponseEntity<PedidoDetalle>(obj, HttpStatus.OK);
     }
-
+*/
     @PostMapping(entidad)
-    public ResponseEntity<?> create(@Valid @RequestBody Venta x, BindingResult result) {
-
-        Venta objNew = null;
-        Map<String, Object> response = new HashMap<>();
-
+    public ResponseEntity<?> create(@Valid @RequestBody VentaDetalle x, BindingResult result) {
+        response.clear();
+        VentaDetalle objNew = null;
         if (result.hasErrors()) {
             List<String> errors = result.getFieldErrors().stream().map(err -> {
                 return "El campo '" + err.getField() + "' " + err.getDefaultMessage();
@@ -85,7 +83,7 @@ public class VentaController {
         }
 
         try {
-
+            //System.out.print(x.getApellidos());
             objNew = objService.create(x);
 
         } catch (DataAccessException ex) {
@@ -104,8 +102,8 @@ public class VentaController {
     @DeleteMapping(entidad + "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> delete(@PathVariable Long id) {
+        response.clear();
 
-        Map<String, Object> response = new HashMap<>();
         try {
             objService.delete(id);
         } catch (DataAccessException ex) {
