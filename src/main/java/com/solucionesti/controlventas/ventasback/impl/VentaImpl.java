@@ -6,6 +6,7 @@ import com.solucionesti.controlventas.ventasback.domains.Venta;
 import com.solucionesti.controlventas.ventasback.domains.VentaDetalle;
 import com.solucionesti.controlventas.ventasback.repositories.IVentaDao;
 import com.solucionesti.controlventas.ventasback.services.IPedidoDetalleService;
+import com.solucionesti.controlventas.ventasback.services.IPedidoService;
 import com.solucionesti.controlventas.ventasback.services.IVentaDetalleService;
 import com.solucionesti.controlventas.ventasback.services.IVentaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class VentaImpl implements IVentaService {
 
     @Autowired
     private IVentaDetalleService ventaDetalleService;
+    @Autowired
+    private IPedidoService pedidoService;
+
 
     @Override
     @Transactional(readOnly = true)
@@ -40,10 +44,8 @@ public class VentaImpl implements IVentaService {
     @Override
     @Transactional
     public Venta create(Venta obj) {
-
         List<PedidoDetalle> pedidoDetalles;
         Venta venta = objDao.save(obj);
-
 
         pedidoDetalles = detalleService.getIdPedido(obj.getPedido().getId());
 
@@ -51,9 +53,12 @@ public class VentaImpl implements IVentaService {
             VentaDetalle ventaDetalle = new VentaDetalle();
             ventaDetalle.setPedidoDetalle(detalle);
             ventaDetalle.setVenta(venta);
-            System.out.println("id del detalle: "+detalle.getId());
             ventaDetalleService.create(ventaDetalle);
         }
+
+        venta.getPedido().setEstado(false);
+        pedidoService.create(venta.getPedido());
+
         return venta;
     }
 
@@ -61,6 +66,5 @@ public class VentaImpl implements IVentaService {
     public void delete(Long id) {
         objDao.deleteById(id);
     }
-
 
 }
