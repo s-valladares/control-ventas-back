@@ -11,20 +11,16 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "pedidos")
-public class Pedido extends AuditModel implements Serializable {
+@Table(name = "egresos")
+public class Egreso extends AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String cliente;
-    private String nota;
+    private String nombre;
+    private String descripcion;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date entrega;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date hora;
-
-    private boolean estado;
+    private Date fechaGasto;
+    private Double total;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -40,44 +36,36 @@ public class Pedido extends AuditModel implements Serializable {
         this.id = id;
     }
 
-    public String getCliente() {
-        return cliente;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getNota() {
-        return nota;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNota(String nota) {
-        this.nota = nota;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public Date getEntrega() {
-        return entrega;
+    public Date getFechaGasto() {
+        return fechaGasto;
     }
 
-    public void setEntrega(Date entrega) {
-        this.entrega = entrega;
+    public void setFechaGasto(Date fechaGasto) {
+        this.fechaGasto = fechaGasto;
     }
 
-    public Date getHora() {
-        return hora;
+    public Double getTotal() {
+        return total;
     }
 
-    public void setHora(Date hora) {
-        this.hora = hora;
-    }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public VentaSemana getVentaSemana() {

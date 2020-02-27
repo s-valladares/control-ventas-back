@@ -4,6 +4,7 @@ package com.solucionesti.controlventas.ventasback.impl;
 import com.solucionesti.controlventas.ventasback.domains.PedidoDetalle;
 import com.solucionesti.controlventas.ventasback.domains.Venta;
 import com.solucionesti.controlventas.ventasback.domains.VentaDetalle;
+import com.solucionesti.controlventas.ventasback.domains.VentaSemana;
 import com.solucionesti.controlventas.ventasback.repositories.IVentaDao;
 import com.solucionesti.controlventas.ventasback.services.IPedidoDetalleService;
 import com.solucionesti.controlventas.ventasback.services.IPedidoService;
@@ -66,5 +67,6 @@ public class VentaImpl implements IVentaService {
     public void delete(Long id) {
         objDao.deleteById(id);
     }
+
 
 }
