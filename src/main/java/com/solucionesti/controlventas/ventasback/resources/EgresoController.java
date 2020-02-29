@@ -128,6 +128,7 @@ public class EgresoController {
             flActual.setDescripcion(fl.getDescripcion());
             flActual.setFechaGasto(fl.getFechaGasto());
             flActual.setTotal(fl.getTotal());
+            flActual.setVentaSemana(fl.getVentaSemana());
 
             flActualizado = objService.create(flActual);
         } catch (DataAccessException ex) {
