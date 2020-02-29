@@ -5,10 +5,11 @@ import com.solucionesti.controlventas.ventasback.domains.Pedido;
 import java.util.List;
 
 public interface IPedidoService {
-    public List<Pedido> getAll();
-    public Pedido getId(Long id);
-    public Pedido create(Pedido p);
-    public void delete(Long id);
+    List<Pedido> getAll();
+    Pedido getId(Long id);
+    Pedido create(Pedido p);
+    void delete(Long id);
 
-    public List<Pedido> getActivos();
+    List<Pedido> getActivos();
+    List<Pedido> getPedidosSemana(Long idSemanaVenta);
 }

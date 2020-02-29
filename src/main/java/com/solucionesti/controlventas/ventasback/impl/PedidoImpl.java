@@ -41,5 +41,10 @@ public class PedidoImpl implements IPedidoService {
         return objDao.verPedidosActivos();
     }
 
+    @Override
+    public List<Pedido> getPedidosSemana(Long idSemanaVenta) {
+        return objDao.verPedidosSemanaVenta(idSemanaVenta);
+    }
+
 
 }

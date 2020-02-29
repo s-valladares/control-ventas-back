@@ -12,4 +12,8 @@ public interface IPedidoDao extends JpaRepository<Pedido, Long> {
     @Query("SELECT p FROM Pedido p WHERE p.estado = true")
     List<Pedido> verPedidosActivos();
 
+    // Mostrar pedidos que pertenecen a cierta semana de venta
+    @Query("SELECT p FROM Pedido p WHERE  p.ventaSemana.id = ?1")
+    List<Pedido> verPedidosSemanaVenta(Long idSemanaVenta);
+
 }
