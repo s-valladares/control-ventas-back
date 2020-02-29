@@ -1,10 +1,7 @@
 package com.solucionesti.controlventas.ventasback.impl;
 
 
-import com.solucionesti.controlventas.ventasback.domains.PedidoDetalle;
-import com.solucionesti.controlventas.ventasback.domains.Venta;
-import com.solucionesti.controlventas.ventasback.domains.VentaDetalle;
-import com.solucionesti.controlventas.ventasback.domains.VentaSemana;
+import com.solucionesti.controlventas.ventasback.domains.*;
 import com.solucionesti.controlventas.ventasback.repositories.IVentaDao;
 import com.solucionesti.controlventas.ventasback.services.IPedidoDetalleService;
 import com.solucionesti.controlventas.ventasback.services.IPedidoService;
@@ -68,5 +65,10 @@ public class VentaImpl implements IVentaService {
         objDao.deleteById(id);
     }
 
+    // Mostrar ventas que pertenecen a cierta semana de venta
+    @Override
+    public  List<Venta> verVentasPorSemanaVenta(Long idSemanaVenta) {
+        return objDao.verVentasPorSemanaVenta(idSemanaVenta);
+    }
 
 }

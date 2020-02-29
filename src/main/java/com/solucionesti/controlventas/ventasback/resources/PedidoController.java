@@ -47,28 +47,6 @@ public class PedidoController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 
-
-/*********** VER TODOS LOS PEDIDOS ACTIVOS EN GENERAL ***************/
-/*******************************************************************/
-    @GetMapping(entidad + "/semana/{id}")
-    public ResponseEntity<?> indexSemana(@PathVariable Long id) {
-        List<Pedido> objNew = null;
-        Map<String, Object> response = new HashMap<>();
-        try {
-            objNew = objService.getPedidosSemana(id);
-            System.out.println(objNew);
-        } catch (DataAccessException ex) {
-            response.put("mensaje", "Error al obtener de la base de datos");
-            response.put("error", ex.getMessage().concat(": ").concat(ex.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        response.put("size", objNew.size());
-        response.put("rows", objNew);
-
-        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-    }
-
     @GetMapping(entidad + "/{id}" )
     public ResponseEntity<?> show(@PathVariable Long id) {
 

@@ -11,5 +11,4 @@ public interface IPedidoService {
     void delete(Long id);
 
     List<Pedido> getActivos();
-    List<Pedido> getPedidosSemana(Long idSemanaVenta);
 }

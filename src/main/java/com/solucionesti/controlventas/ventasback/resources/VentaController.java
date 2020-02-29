@@ -69,6 +69,28 @@ public class VentaController {
         return new ResponseEntity<Venta>(obj, HttpStatus.OK);
     }
 
+
+    /*********** VER TODOS LOS PEDIDOS ACTIVOS EN GENERAL ***************/
+    /*******************************************************************/
+    @GetMapping(entidad + "/semana/{id}")
+    public ResponseEntity<?> indexSemana(@PathVariable Long id) {
+        List<Venta> objNew = null;
+        Map<String, Object> response = new HashMap<>();
+        try {
+            objNew = objService.verVentasPorSemanaVenta(id);
+            System.out.println(objNew);
+        } catch (DataAccessException ex) {
+            response.put("mensaje", "Error al obtener de la base de datos");
+            response.put("error", ex.getMessage().concat(": ").concat(ex.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        response.put("size", objNew.size());
+        response.put("rows", objNew);
+
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+
     @PostMapping(entidad)
     public ResponseEntity<?> create(@Valid @RequestBody Venta x, BindingResult result) {
 
